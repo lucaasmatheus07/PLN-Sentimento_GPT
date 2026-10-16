@@ -306,3 +306,8 @@ if executar_scan:
                 st.markdown("<br>", unsafe_allow_html=True)
                 with st.expander("💻 INSPEÇÃO DE DADOS (RAW TERMINAL JSON)"):
                     st.json(dados_json)
+
+            except json.JSONDecodeError:
+                st.error("❌ ERRO DE PARSER // Falha ao decodificar a resposta JSON do modelo.")
+            except Exception as e:
+                st.error(f"❌ FALHA CRÍTICA NO PROCESSAMENTO NEURAL: {e}")
