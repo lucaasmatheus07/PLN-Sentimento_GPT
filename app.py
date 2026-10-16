@@ -201,3 +201,24 @@ if st.button("🚀 Processar e Extrair Dados", use_container_width=True):
                 # Seção: Assunto Principal
                 st.markdown("### 📌 Assunto Principal")
                 st.info(assunto)
+
+                # Seção: Pessoas Citadas
+                st.markdown("### 👥 Pessoas Mencionadas")
+                if pessoas:
+                    # Utilização do recurso st.pills (Streamlit nativo) se disponível, ou lista estilizada
+                    if hasattr(st, "pills"):
+                        st.pills("Identificados:", pessoas, selection_mode=None)
+                    else:
+                        st.write(" • ".join([f"**{p}**" for p in pessoas]))
+                else:
+                    st.caption("Nenhuma pessoa específica foi identificada no texto analisado.")
+
+                # Seção: JSON Bruto
+                st.markdown("---")
+                with st.expander("🛠️ Visualizar JSON Bruto (Dados Estruturados)"):
+                    st.json(conteudo_json)
+
+            except json.JSONDecodeError:
+                st.error("❌ Erro ao converter a resposta do modelo em JSON válido.")
+            except Exception as e:
+                st.error(f"❌ Erro durante a execução da requisição: {e}")
